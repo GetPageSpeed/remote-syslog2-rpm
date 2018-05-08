@@ -160,6 +160,7 @@ export GOPATH=$(pwd):%{gopath}
 %install
 install -d -p %{buildroot}%{_bindir}
 install -p -m 0755 bin/remote_syslog %{buildroot}%{_bindir}/remote_syslog
+install -p -m 0644 examples/log_files.yml.example %{buildroot}%{_sysconfdir}/log_files.yml
 %if %{use_systemd}
 # install systemd-specific files
 %{__mkdir} -p $RPM_BUILD_ROOT%{_unitdir}
@@ -238,6 +239,7 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %files
 %license LICENSE
 %doc README.md
+%config(noreplace) %{_sysconfdir}/log_files.yml
 %{_bindir}/remote_syslog
 %if %{use_systemd}
 %{_unitdir}/remote_syslog.service
@@ -277,6 +279,7 @@ Please find the official documentation for remote_syslog2 here:
 
 ----------------------------------------------------------------------
 BANNER
+fi
 
 %preun
 if [ $1 -eq 0 ]; then
