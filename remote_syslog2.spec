@@ -46,7 +46,7 @@
 
 Name:           remote_syslog2
 Version:        0.20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight self-contained daemon for reading local files and emitting remote syslog (without using local syslog daemon)
 # Detected licences
 # - MIT/X11 (BSD like) at 'LICENSE'
@@ -303,6 +303,6 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
-* Tue May 8 2018 Danila Vershinin <info@getpagespeed.com> - 0.20-1
+* Tue May 8 2018 Danila Vershinin <info@getpagespeed.com> - 0.20-3
 - First package for EPEL 7
 
