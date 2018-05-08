@@ -1,6 +1,7 @@
 version: 2
 jobs:
   "el7":
+      parallelism: 1
       machine: true
       steps:
         - checkout
@@ -18,6 +19,7 @@ jobs:
             paths:
               - project
   "el6":
+      parallelism: 1
       machine: true
       steps:
         - checkout
@@ -34,7 +36,7 @@ jobs:
             root: /home/circleci
             paths:
               - project 
-  el7deploy:
+  deploy:
     machine: true
     steps:
       - attach_workspace:
@@ -49,36 +51,16 @@ jobs:
           name: "Deploy all RPMs to GetPageSpeed repo."
           command: scp -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
           context: getpagespeed-builder                
-  el6deploy:
-    machine: true
-    steps:
-      - attach_workspace:
-          at: /home/circleci
-      - run:
-          name: "Delete stupid keys that was added by CircleCI by default"
-          command: ssh-add -D
-      - add_ssh_keys:
-          fingerprints:
-            - "8c:a4:dd:2c:47:4c:63:aa:90:0b:e0:d6:15:be:87:82"
-      - run:
-          name: "Deploy all RPMs to GetPageSpeed repo."
-          command: scp -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
-          context: getpagespeed-builder              
 workflows:
   version: 2
   build_deploy:
     jobs:
       - "el7"
       - "el6"
-      - el7deploy:
+      - deploy:
           requires:
             - "el7"
-          filters:
-            branches:
-              only: master      
-      - el6deploy:
-          requires:
             - "el6"
           filters:
             branches:
-              only: master
+              only: master      
