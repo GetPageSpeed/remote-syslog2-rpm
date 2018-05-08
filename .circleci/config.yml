@@ -14,7 +14,7 @@ jobs:
               OS_DIST: epel
               OS_VERSION: 7
         - persist_to_workspace:
-            root: /home/el7
+            root: /home/circleci
             paths:
               - project
   "el6":
@@ -31,14 +31,14 @@ jobs:
               OS_DIST: epel
               OS_VERSION: 6
         - persist_to_workspace:
-            root: /home/el6
+            root: /home/circleci
             paths:
               - project 
   el7deploy:
     machine: true
     steps:
       - attach_workspace:
-          at: /home/el7
+          at: /home/circleci
       - run:
           name: "Delete stupid keys that was added by CircleCI by default"
           command: ssh-add -D
@@ -53,7 +53,7 @@ jobs:
     machine: true
     steps:
       - attach_workspace:
-          at: /home/el6
+          at: /home/circleci
       - run:
           name: "Delete stupid keys that was added by CircleCI by default"
           command: ssh-add -D
