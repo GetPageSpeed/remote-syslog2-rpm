@@ -15,28 +15,9 @@ jobs:
               OS_DIST: epel
               OS_VERSION: 7             
         - persist_to_workspace:
-            root: /home/circleci/project
+            root: /home/circleci
             paths:
-              - "*.rpm"
-  "el6":
-      parallelism: 1
-      machine: true
-      steps:
-        - checkout
-        - run:
-            name: "Build all the .spec files for EL7 via Docker image."
-            command: docker run -v ${PWD}:/sources -v ${PWD}:/output:Z ${DOCKER_IMAGE}:${OS_TYPE}-${OS_VERSION}
-            environment:
-              DOCKER_IMAGE: alectolytic/rpmbuilder
-              OS_ARCH: x86_64
-              OS_TYPE: centos
-              OS_DIST: epel
-              OS_VERSION: 6
-        - persist_to_workspace:
-            root: /home/circleci/project
-            paths:
-              - "*.rpm"
-              
+              - project           
   deploy:
     machine: true
     steps:
@@ -51,17 +32,19 @@ jobs:
       - run:
           name: "Deploy all RPMs to GetPageSpeed repo."
           command: scp -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
-          context: getpagespeed-builder                
+          context: getpagespeed-builder  
+      - run:
+          name: "Trigger SSH hook"
+          command: ssh $GPS_BUILD_USER@$GPS_BUILD_SERVER "launch2log.sh ~/scripts/incoming.sh ~/incoming/process.log"
+          context: getpagespeed-builder
 workflows:
   version: 2
   build_deploy:
     jobs:
       - "el7"
-      - "el6"
       - deploy:
           requires:
             - "el7"
-            - "el6"
           filters:
             branches:
               only: master      
