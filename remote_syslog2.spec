@@ -45,7 +45,7 @@
 %global import_path     %{provider_prefix}
 
 Name:           remote_syslog2
-Version:        0.20
+Version:        1.20
 Release:        2%{?dist}
 Summary:        Lightweight self-contained daemon for reading local files and emitting remote syslog (without using local syslog daemon)
 # Detected licences
