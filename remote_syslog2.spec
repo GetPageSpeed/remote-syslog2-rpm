@@ -160,6 +160,7 @@ export GOPATH=$(pwd):%{gopath}
 %install
 install -d -p %{buildroot}%{_bindir}
 install -p -m 0755 bin/remote_syslog %{buildroot}%{_bindir}/remote_syslog
+install -d -p %{buildroot}%{_sysconfdir}
 install -p -m 0644 examples/log_files.yml.example %{buildroot}%{_sysconfdir}/log_files.yml
 %if %{use_systemd}
 # install systemd-specific files
