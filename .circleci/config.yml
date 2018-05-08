@@ -17,7 +17,7 @@ jobs:
         - persist_to_workspace:
             root: /home/circleci/project
             paths:
-              - *.rpm
+              - "*.rpm"
   "el6":
       parallelism: 1
       machine: true
@@ -35,7 +35,7 @@ jobs:
         - persist_to_workspace:
             root: /home/circleci/project
             paths:
-              - *.rpm
+              - "*.rpm"
               
   deploy:
     machine: true
