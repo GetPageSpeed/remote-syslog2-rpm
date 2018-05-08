@@ -13,7 +13,10 @@ jobs:
               OS_ARCH: x86_64
               OS_TYPE: centos
               OS_DIST: epel
-              OS_VERSION: 7             
+              OS_VERSION: 7 
+        - run:
+            name: "Actual check. Failure to stat will result in failed CircleCi test in GitHub"
+            command: stat *.rpm
         - persist_to_workspace:
             root: /home/circleci
             paths:
