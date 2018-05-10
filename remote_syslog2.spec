@@ -52,7 +52,9 @@ Summary:        Lightweight self-contained daemon for reading local files and em
 # - MIT/X11 (BSD like) at 'LICENSE'
 License:        MIT License
 URL:            https://%{provider_prefix}
-Source0:        https://github.com/papertrail/%{repo}/archive/v%{version}.tar.gz#/%{repo}-%{version}.tar.gz
+# Source0:        https://github.com/papertrail/%{repo}/archive/v%{version}.tar.gz#/%{repo}-%{version}.tar.gz
+# The URL without # should allow to build things absent sources, even with the spectool from EL6 which cannot handle hash sign
+Source0:        https://github.com/papertrail/%{repo}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        remote_syslog.service
 
 # e.g. el6 has ppc64 arch without gcc-go, so EA tag is required
