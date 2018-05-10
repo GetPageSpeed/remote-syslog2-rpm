@@ -67,10 +67,15 @@ workflows:
     jobs:
       - "el7"
       - "el6"
-      - deploy:
+      - el7deploy:
           requires:
             - "el7"
-            - "el6"
           filters:
             branches:
               only: master      
+      - el6deploy:
+          requires:
+            - "el6"
+          filters:
+            branches:
+              only: master
