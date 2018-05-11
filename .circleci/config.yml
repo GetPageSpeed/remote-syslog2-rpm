@@ -70,6 +70,7 @@ workflows:
       - deploy:
           requires:
             - "el7"
+            - "el6"
           filters:
             branches:
               only: master      
