@@ -2,7 +2,7 @@
 
 Purpose of repository: keep track and automatically build [PaperTrail](https://www.getpagespeed.com/recommends/papertrail)'s [remote_syslog2](https://github.com/papertrail/remote_syslog2).
 
-[![Build Status](https://travis-ci.org/GetPageSpeed/remote-syslog2-rpm.svg?branch=master)](https://travis-ci.org/GetPageSpeed/remote-syslog2-rpm)
+[![CircleCI](https://circleci.com/gh/GetPageSpeed/remote-syslog2-rpm.svg?style=svg)](https://circleci.com/gh/GetPageSpeed/remote-syslog2-rpm)
 
 Install from our repository:
 
