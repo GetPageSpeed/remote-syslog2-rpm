@@ -5,7 +5,10 @@ jobs: # a collection of steps
       - image: alectolytic/rpmbuilder:centos-7
     working_directory: ~/app # directory where steps will run
     steps: # a set of executable commands
-      - checkout # special step to check out source code to working directory
+      - run:
+          name: "Install some stuff we need aside from provided by image."
+          command: yum -y install git rpmlint
+      - checkout
       - run:
           name: "The .spec file check."
           command: |
