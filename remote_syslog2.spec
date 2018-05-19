@@ -1,3 +1,5 @@
+%define dist %{expand:%%(/usr/lib/rpm/redhat/dist.sh --dist)}
+
 # If any of the following macros should be set otherwise,
 # you can wrap any of them with the following conditions:
 # - %%if 0%%{centos} == 7
@@ -46,8 +48,8 @@
 
 Name:           remote_syslog2
 Version:        0.20
-Release:        3%{?dist}
-Summary:        Lightweight self-contained daemon for reading local files and emitting remote syslog (without using local syslog daemon)
+Release:        4%{?dist}
+Summary:        Daemon for reading local files and emitting remote syslog (without using local syslog)
 # Detected licences
 # - MIT/X11 (BSD like) at 'LICENSE'
 License:        MIT License
@@ -91,8 +93,9 @@ BuildRequires: golang(github.com/nightlyone/lockfile)
 %endif
 
 %description
-remote_syslog tails one or more log files and sends syslog messages to a remote central syslog server. 
-It generates packets itself, ignoring the system syslog daemon, so its configuration doesn't affect system-wide logging.
+remote_syslog tails one or more log files and sends syslog messages to a remote
+central syslog server. It generates packets itself, ignoring the system syslog 
+daemon, so its configuration doesn't affect system-wide logging.
 
 %if 0%{?with_devel}
 %package devel
@@ -305,6 +308,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Sun May 20 2018 Danila Vershinin <info@getpagespeed.com> - 0.20-4
+- Fix rpmlint and consistent .dist tag
+
 * Tue May 8 2018 Danila Vershinin <info@getpagespeed.com> - 0.20-3
 - First package for EPEL 7
 
