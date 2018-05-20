@@ -44,11 +44,10 @@ jobs: # a collection of steps
           command: yum -y install openssh-clients
       - run:
           name: "Scan the key."
-          command: ssh-keyscan $GPS_BUILD_SERVER
+          command: ssh-keyscan $GPS_BUILD_SERVER > /dev/null
       - run:
           name: "Deploy all RPMs to GetPageSpeed repo."
-          command: scp -q -r $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
-          context: getpagespeed-builder
+          command: scp -q -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
       - run:
           name: "Trigger Deploy Hook."
           command: ssh -q $GPS_BUILD_USER@$GPS_BUILD_SERVER "launch2log.sh ~/scripts/incoming.sh ~/incoming/process.log"
