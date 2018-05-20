@@ -28,7 +28,7 @@ jobs: # a collection of steps
             - "*.rpm"
   deploy:
     docker:
-      - image: circleci/classic:latest
+      - image: centos:7
     working_directory: /output
     steps:
       - attach_workspace:
