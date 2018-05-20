@@ -43,12 +43,15 @@ jobs: # a collection of steps
           name: "Install stuff to deploy"
           command: yum -y install openssh-clients
       - run:
+          name: "Scan the key."
+          command: ssh-keyscan $GPS_BUILD_SERVER
+      - run:
           name: "Deploy all RPMs to GetPageSpeed repo."
-          command: scp -q -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
+          command: scp -q -r $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
           context: getpagespeed-builder
       - run:
           name: "Trigger Deploy Hook."
-          command: ssh -o StrictHostKeyChecking=no $GPS_BUILD_USER@$GPS_BUILD_SERVER "launch2log.sh ~/scripts/incoming.sh ~/incoming/process.log"
+          command: ssh -q $GPS_BUILD_USER@$GPS_BUILD_SERVER "launch2log.sh ~/scripts/incoming.sh ~/incoming/process.log"
 workflows:
   version: 2
   build-deploy:
