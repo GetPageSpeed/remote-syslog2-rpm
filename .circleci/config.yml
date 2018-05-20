@@ -40,6 +40,9 @@ jobs: # a collection of steps
           name: Check RPMs are still there
           command: stat *.rpm
       - run:
+          name: "Install stuff to deploy"
+          command: yum -y install openssh-clients
+      - run:
           name: "Deploy all RPMs to GetPageSpeed repo."
           command: scp -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
           context: getpagespeed-builder
