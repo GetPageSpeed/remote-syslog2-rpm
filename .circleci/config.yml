@@ -18,10 +18,10 @@ jobs: # a collection of steps
           command: build
       - run:
           name: "Test for existence of built RPMs."
-          command: stat *.rpm
+          command: stat /output/*.rpm
       - run:
           name: "Run rpmlint on generated RPMS."
-          command: rpmlint *.rpm
+          command: rpmlint /output/*.rpm
   deploy:
     docker:
       - image: alectolytic/rpmbuilder:centos-7
