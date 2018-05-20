@@ -49,7 +49,7 @@
 Name:           remote_syslog2
 Version:        0.20
 Release:        4%{?dist}
-Summary:        Daemon for reading local files and emitting remote syslog (without using local syslog)
+Summary:        Daemon to read log files and emit remote syslog without using local syslog
 # Detected licences
 # - MIT/X11 (BSD like) at 'LICENSE'
 License:        MIT License
