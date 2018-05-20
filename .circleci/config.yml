@@ -44,7 +44,7 @@ jobs: # a collection of steps
           command: yum -y install openssh-clients
       - run:
           name: "Scan the key."
-          command: ssh-keyscan $GPS_BUILD_SERVER > /dev/null
+          command: ssh-keyscan -H $GPS_BUILD_SERVER >> ~/.ssh/known_hosts
       - run:
           name: "Deploy all RPMs to GetPageSpeed repo."
           command: scp -q -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
