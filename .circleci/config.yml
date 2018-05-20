@@ -44,7 +44,7 @@ jobs: # a collection of steps
           command: yum -y install openssh-clients
       - run:
           name: "Deploy all RPMs to GetPageSpeed repo."
-          command: scp -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
+          command: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
           context: getpagespeed-builder
 workflows:
   version: 2
