@@ -33,7 +33,6 @@ jobs: # a collection of steps
     steps:
       - attach_workspace:
           at: /output
-      - checkout
       - run:
           name: Check RPMs are still there
           command: stat *.rpm
