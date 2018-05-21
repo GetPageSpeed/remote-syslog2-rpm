@@ -57,7 +57,7 @@ URL:            https://%{provider_prefix}
 # Source0:        https://github.com/papertrail/%{repo}/archive/v%{version}.tar.gz#/%{repo}-%{version}.tar.gz
 # The URL without # should allow to build things absent sources, even with the spectool from EL6 which cannot handle hash sign
 Source0:        https://github.com/papertrail/%{repo}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        remote_syslog.service
+Source1:        remote_syslog.service2
 
 # e.g. el6 has ppc64 arch without gcc-go, so EA tag is required
 ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %{arm}}
