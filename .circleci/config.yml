@@ -1,10 +1,4 @@
-version: 2 # use CircleCI 2.0
-# https://circleci.com/docs/2.0/language-php/ adopted from Laravel example
-jobs: # a collection of steps
-  build: # runs not using Workflows must have a `build` job as entry point
-    docker: # run the steps with Docker
-      - image: getpagespeed/rpmbuilder:centos-7
-    working_directory: /sources # directory where steps will run
+defaults: &defaults
     steps: # a set of executable commands
       - checkout # special step to check out source code to working directory
       - run:
@@ -14,6 +8,14 @@ jobs: # a collection of steps
           root: /output
           paths:
             - "*.rpm"
+
+version: 2 
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    docker: # run the steps with Docker
+      - image: getpagespeed/rpmbuilder:centos-7
+    working_directory: /sources # directory where steps will run
+    <<: *defaults
   deploy:
     docker:
       - image: centos:7
@@ -25,20 +27,14 @@ jobs: # a collection of steps
           fingerprints:
             - "8c:a4:dd:2c:47:4c:63:aa:90:0b:e0:d6:15:be:87:82"
       - run:
-          name: Check RPMs are still there
-          command: stat *.rpm
-      - run:
           name: "Install stuff to deploy"
           command: yum -y install openssh-clients
       - run:
-          name: "Scan the key."
-          command: ssh-keyscan -H $GPS_BUILD_SERVER >> ~/.ssh/known_hosts &2>/dev/null
-      - run:
           name: "Deploy all RPMs to GetPageSpeed repo."
-          command: scp -q -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
+          command: scp -o StrictHostKeyChecking=no -q -r *.rpm $GPS_BUILD_USER@$GPS_BUILD_SERVER:~/incoming/
       - run:
           name: "Trigger Deploy Hook."
-          command: ssh -q $GPS_BUILD_USER@$GPS_BUILD_SERVER "launch2log.sh ~/scripts/incoming.sh ~/incoming/process.log"
+          command: ssh -o StrictHostKeyChecking=no -q $GPS_BUILD_USER@$GPS_BUILD_SERVER "launch2log.sh ~/scripts/incoming.sh ~/incoming/process.log"
 workflows:
   version: 2
   build-deploy:
