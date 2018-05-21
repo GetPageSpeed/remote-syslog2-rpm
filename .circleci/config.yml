@@ -11,8 +11,13 @@ defaults: &defaults
 
 version: 2 
 jobs: # a collection of steps
-  build: # runs not using Workflows must have a `build` job as entry point
+  el6:
     docker: # run the steps with Docker
+      - image: getpagespeed/rpmbuilder:centos-6
+    working_directory: /sources # directory where steps will run
+    <<: *defaults
+  el7:
+    docker:
       - image: getpagespeed/rpmbuilder:centos-7
     working_directory: /sources # directory where steps will run
     <<: *defaults
@@ -39,10 +44,12 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build
+      - el6
+      - el7
       - deploy:
           requires:
-            - build
+            - el6
+            - el7
           filters:
             branches:
               only: master
