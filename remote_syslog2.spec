@@ -47,8 +47,8 @@
 %global import_path     %{provider_prefix}
 
 Name:           remote_syslog2
-Version:        0.20
-Release:        4%{?dist}
+Version: 0.20-beta2
+Release: 1%{?dist}
 Summary:        Daemon to read log files and emit remote syslog without using local syslog
 # Detected licences
 # - MIT/X11 (BSD like) at 'LICENSE'
@@ -308,6 +308,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Thu Nov 22 2018 Danila Vershinin <info@getpagespeed.com> 0.20-beta2-1
+- upstream version auto-updated to 0.20-beta2
+
 * Sun May 20 2018 Danila Vershinin <info@getpagespeed.com> - 0.20-4
 - Fix rpmlint and consistent .dist tag
 
