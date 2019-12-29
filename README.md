@@ -1,4 +1,4 @@
-# remote_syslog2 RPM build
+# RPM build of remote_syslog2 (CentOS/RHEL 6+)
 
 Purpose: keep track and *automatically* build [PaperTrail](https://www.getpagespeed.com/recommends/papertrail)'s [remote_syslog2](https://github.com/papertrail/remote_syslog2).
 Yes, the RPM build is automated and you always get the recent version!!!
@@ -7,5 +7,5 @@ Yes, the RPM build is automated and you always get the recent version!!!
 
 Install from our YUM repository:
 
-    yum install https://extras.getpagespeed.com/release-el7-latest.rpm
-    yum install remote_syslog2
+    sudo yum install https://extras.getpagespeed.com/release-el$(rpm -E %{rhel})-latest.rpm
+    sudo yum install remote_syslog2
